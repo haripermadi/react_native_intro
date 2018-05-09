@@ -9,9 +9,13 @@ import {
   Platform,
   StyleSheet,
   Text,
-  View
+  View,
+  Button
 } from 'react-native';
-import Home from './components/Home'
+import {createStackNavigator} from 'react-navigation'
+import Home from './screens/Home'
+import About from './screens/About'
+import Detail from './screens/Details'
 
 const instructions = Platform.select({
   ios: 'Press Cmd+R to reload,\n' +
@@ -21,21 +25,34 @@ const instructions = Platform.select({
 });
 
 // type Props = {};
+const RootStack = createStackNavigator ({
+  Home: {
+    screen: Home
+  },
+  About: {
+    screen: About
+  },
+  Details: {
+    screen: Detail
+  }
+},
+{
+  initialRouteName: 'Home'
+})
+
 export default class App extends Component{
   render() {
     return (
-      <View style={styles.container}>
-        <Text style={styles.welcome}>
-          Welcome to React Native!
-        </Text>
-        <Text style={styles.instructions}>
-          To get started, edit App.js
-        </Text>
-        <Text style={styles.instructions}>
-          {instructions}
-        </Text>
-        <Home/>
-      </View>
+      // <View style={styles.container}>
+      //   <Text style={styles.welcome}>
+      //     Welcome to Magic: The Gathering!
+      //   </Text>
+      //   <Text style={styles.instructions}>
+      //     Collect the wizards and rule the world!
+      //   </Text>
+      //   <Home/>
+      // </View>
+      <RootStack/>
     );
   }
 }
@@ -43,7 +60,7 @@ export default class App extends Component{
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
+    justifyContent: 'flex-start',
     alignItems: 'center',
     backgroundColor: '#F5FCFF',
   },
