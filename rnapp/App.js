@@ -12,10 +12,13 @@ import {
   View,
   Button
 } from 'react-native';
-import {createStackNavigator} from 'react-navigation'
+import {createStackNavigator, createBottomTabNavigator} from 'react-navigation'
 import Home from './screens/Home'
 import About from './screens/About'
 import Detail from './screens/Details'
+import FontAwesome from 'react-native-vector-icons/FontAwesome'
+import {Provider} from 'react-redux'
+import store from './store/index'
 
 const instructions = Platform.select({
   ios: 'Press Cmd+R to reload,\n' +
@@ -29,18 +32,44 @@ const RootStack = createStackNavigator ({
   Home: {
     screen: Home
   },
-  About: {
-    screen: About
-  },
   Details: {
     screen: Detail
   }
-},
-{
-  initialRouteName: 'Home'
 })
 
-export default class App extends Component{
+const AboutPage = createStackNavigator ({
+  About: {
+    screen: About
+  }
+})
+
+export default createBottomTabNavigator(
+  {
+    Home: RootStack,
+    About: AboutPage
+  },
+  {
+    navigationOptions: ({navigation}) => ({
+      tabBarIcon: ({focused, tintColor}) => {
+        const {routeName} = navigation.state;
+        let iconName;
+        if(routeName === 'Home') {
+          iconName = `home`
+        } 
+        else if(routeName === 'About') {
+          iconName =`info${focused ? '' : '-circle'}`
+        }
+        return <FontAwesome name={iconName} size={25} color={tintColor}/>
+      },
+    }),
+    tabBarOptions: {
+      activeTintColor: 'tomato',
+      inactiveTintColor: 'gray'
+    }
+  },
+);
+
+class App extends Component{
   render() {
     return (
       // <View style={styles.container}>
@@ -52,7 +81,9 @@ export default class App extends Component{
       //   </Text>
       //   <Home/>
       // </View>
-      <RootStack/>
+      // <Provider store={store}>
+        <RootStack/>
+      {/* </Provider> */}
     );
   }
 }

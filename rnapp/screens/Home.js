@@ -7,6 +7,10 @@ import {View,
   Button,
   Image,
 } from 'react-native'
+import {connect} from 'react-redux'
+import {bindActionCreators} from 'redux'
+import {getCards} from '../store/Cards/card.actions'
+
 import axios from 'axios'
 
 class Home extends Component {
@@ -17,47 +21,45 @@ class Home extends Component {
     }
   }
 
-  getCards () {
-    axios({
-      method: 'get',
-      url: 'https://api.magicthegathering.io/v1/cards'
-    }).then(response => {
-      console.log(response)
-      this.setState({
-        cards: response.data.cards
-      })
-    })
-  }
+  // getCards () {
+  //   axios({
+  //     method: 'get',
+  //     url: 'https://api.magicthegathering.io/v1/cards'
+  //   }).then(response => {
+  //     console.log(response)
+  //     this.setState({
+  //       cards: response.data.cards
+  //     })
+  //   })
+  // }
 
   componentDidMount () {
-    this.getCards()
+    // this.getCards()
+    this.props.getCards()
+    console.log('testtttt')
   }
 
   render() {
-    console.log(this.state.cards)
+    console.log('ini props',this.props)
     return (
       <ScrollView>
-        <Button
-        title="About"
-        onPress={() => this.props.navigation.navigate('About')}
-      />
-      <Text style={styles.welcome}>Welcome to Magic: Gathering!</Text>
+        {this.props}
+      <Text style={styles.welcome}>Welcome to Magic: The Gathering!</Text>
       <Text style={styles.tagline}>Collect the wizards and rule the world!</Text>
       <FlatList
-        data={this.state.cards}
+        data={this.props.cards.data}
+        numColumns={3}
         renderItem={({item}) =>
           <View key={item.id} style={styles.listItem}>
             <Image
               style={styles.img}
               source={{uri:item.imageUrl}}
             />
-            <Text style={styles.item}>{item.name}</Text>
-            <Button
-              title="See detail"
+            <Text style={styles.item}
               onPress={() => this.props.navigation.navigate('Details',{
-                itemId: item.id
-              })}
-            />
+              itemId: item.id
+            })}
+            >{item.name}</Text>
           </View>
         }
       />
@@ -76,24 +78,35 @@ const styles = StyleSheet.create({
     marginBottom: 5,
   },
   img: {
-    width: 100,
-    height: 100,
+    width: 110,
+    height: 150,
     padding: 10
   },
   listItem: {
     flex: 1,
     flexDirection: 'row',
     flexWrap: 'wrap',
-    alignContent: 'flex-start',
+    justifyContent:'center',
+    alignItems: 'baseline',
     width: 150,
-    height: 170,
+    height: 200,
     padding: 10,
     margin: 5,
   },
   item:{
     paddingTop: 2,
-    color: 'blue'
+    color: 'blue',
+    fontSize: 12,
+    textAlign: 'center'
   }
 });
 
-export default Home;
+const mapStateToProps = (state) => ({
+  cards: state.cards
+})
+
+const mapDispatchToProps = (dispatch) => bindActionCreators({
+  getCards
+}, dispatch)
+
+export default connect(mapStateToProps, mapDispatchToProps) (Home);
