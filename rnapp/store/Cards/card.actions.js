@@ -17,7 +17,7 @@ export const getCards = () => {
       url: 'https://api.magicthegathering.io/v1/cards'
     }).then(response => {
       console.log('respon getcards store',response)
-      dispatch(getCardsSuccess(response.data.cards))
+      dispatch(getCardsSuccess(response.data.cards.slice(0,99)))
     }).catch(error => {
       dispatch(getCardsError())
     })
@@ -25,6 +25,7 @@ export const getCards = () => {
 }
 
 export const getCardDetail = (cardId) => {
+  console.log('id cards===', cardId)
   return dispatch => {
     dispatch(getCardDetailPending())
     axios({

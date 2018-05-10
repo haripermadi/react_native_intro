@@ -2,10 +2,12 @@ import {createStore, applyMiddleware, combineReducers} from 'redux'
 import thunk from 'redux-thunk'
 import cardReducers from './Cards/card.reducers'
 import cardDetailReducers from './Cards/card.Detailreducers'
+import newsReducer from './news/news.reducers'
 
 const reducers = combineReducers({
   cards: cardReducers,
-  cardDetail: cardDetailReducers
+  cardDetail: cardDetailReducers,
+  news: newsReducer
 })
 
 const store = createStore(

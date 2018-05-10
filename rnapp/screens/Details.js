@@ -18,6 +18,16 @@ class Details extends Component {
       detail: {}
     }
   }
+  static navigationOptions = {
+    title: 'Back',
+    headerStyle: {
+      backgroundColor: '#1B1464',
+    },
+    headerTintColor: 'white',
+    headerTitleStyle: {
+      fontWeight: 'bold',
+    },
+  };
 
   getCard () {
     const { navigation } = this.props;
@@ -32,26 +42,36 @@ class Details extends Component {
       })
     })
   }
-
+          
   componentDidMount () {
+  //   const { navigation } = this.props;
+  //   const itemId = navigation.getParam('itemId', 'NO-ID')
+  //   this.getCardDetail(itemId)
     this.getCard()
   }
+
   render() {
-    const { navigation } = this.props;
-    const itemId = navigation.getParam('itemId', 'NO-ID')
     console.log(this.state.detail)
     return (
       <ScrollView style={styles.container}>
-          <Image
+        {this.state.detail === '' ? 
+          <View style={styles.listItem}>
+            <Text style={styles.welcome}>Loading data...</Text>
+          </View>
+          :
+          <View>
+        <Text style={styles.title}>{this.state.detail.name}</Text>
+        <Image
               style={styles.img}
               source={{uri:this.state.detail.imageUrl}}
-          />
-        <Text style={styles.text}>Name: {this.state.detail.name}</Text>
+        />
         <Text style={styles.text}>Description: {this.state.detail.text}</Text>
         <Text style={styles.text}>Power: {this.state.detail.power}</Text>
         <Text style={styles.text}>Rarity: {this.state.detail.rarity}</Text>
         <Text style={styles.text}>Type: {this.state.detail.type}</Text>
-      </ScrollView>
+        </View>
+        }
+        </ScrollView>
     );
   }
 }
@@ -59,8 +79,9 @@ class Details extends Component {
 const styles = StyleSheet.create({
   container: {
     margin: 0,
-    backgroundColor: '#3c6382',
-    height: '100%'
+    backgroundColor: '#0652DD',
+    height: '100%',
+    paddingBottom: 20
   },
   img: {
     width: 200,
@@ -75,7 +96,23 @@ const styles = StyleSheet.create({
     paddingTop: 5,
     fontSize: 16,
     color: 'white'
+  },
+  title: {
+    fontSize: 24,
+    color: 'white',
+    textAlign: 'center',
+    fontWeight: 'bold',
+    marginTop: 10
   }
 });
 
-export default Details;
+export default Details
+// const mapStateToProps = (state) => ({
+//   card: state.cardsDetail
+// })
+
+// const mapDispatchToProps = (dispatch) => bindActionCreators({
+//   getCardDetail
+// }, dispatch)
+
+// export default connect(mapStateToProps, mapDispatchToProps) (Details);

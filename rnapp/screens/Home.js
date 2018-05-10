@@ -20,6 +20,16 @@ class Home extends Component {
       cards: []
     }
   }
+  static navigationOptions = {
+    title: 'Magic: The Gathering',
+    headerStyle: {
+      backgroundColor: '#1B1464',
+    },
+    headerTintColor: 'white',
+    headerTitleStyle: {
+      fontWeight: 'bold',
+    },
+  };
 
   // getCards () {
   //   axios({
@@ -40,12 +50,15 @@ class Home extends Component {
   }
 
   render() {
-    console.log('ini props',this.props)
     return (
       <ScrollView>
-        {this.props}
       <Text style={styles.welcome}>Welcome to Magic: The Gathering!</Text>
       <Text style={styles.tagline}>Collect the wizards and rule the world!</Text>
+      {this.props.cards.loading ? 
+          <View>
+            <Text style={styles.welcome}>Loading data...</Text>
+          </View>
+          :
       <FlatList
         data={this.props.cards.data}
         numColumns={3}
@@ -63,6 +76,7 @@ class Home extends Component {
           </View>
         }
       />
+      }
       </ScrollView>
     );
   }
