@@ -26,6 +26,7 @@ class News extends Component {
   componentDidMount () {
     this.props.getNews()
   }
+
   render() {
     console.log('ini props',this.props.news)
     return (
@@ -48,9 +49,9 @@ class News extends Component {
             <Text>{item.title}</Text>
             <Text>{item.description}</Text>
               <Text style={styles.item}
-                onPress={() => this.props.navigation.navigate('NewsDetail',{
-                url: item.url
-              })}
+                onPress={()=>this.props.navigation.navigate('NewsDetail',{
+                  url: item.url
+                })}
               >See detail</Text>
             </View>
           }

@@ -6,6 +6,7 @@ import {View,
   ScrollView,
   Button,
   Image,
+  TouchableHighlight
 } from 'react-native'
 import {connect} from 'react-redux'
 import {bindActionCreators} from 'redux'
@@ -64,14 +65,17 @@ class Home extends Component {
         numColumns={3}
         renderItem={({item}) =>
           <View key={item.id} style={styles.listItem}>
+            <TouchableHighlight
+              onPress={() => this.props.navigation.navigate('Details',{
+                itemId: item.id
+              })}
+            >
             <Image
               style={styles.img}
               source={{uri:item.imageUrl}}
             />
+            </TouchableHighlight>
             <Text style={styles.item}
-              onPress={() => this.props.navigation.navigate('Details',{
-              itemId: item.id
-            })}
             >{item.name}</Text>
           </View>
         }

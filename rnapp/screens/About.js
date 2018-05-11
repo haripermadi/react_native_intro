@@ -5,7 +5,8 @@ import {
   Text,
   Button,
   Image,
-  ScrollView
+  ScrollView,
+  TouchableHighlight
 } from 'react-native'
 
 class About extends Component {
@@ -25,10 +26,14 @@ class About extends Component {
       <ScrollView>
       <View  style={styles.container}>
         <Text style={styles.aboutTitle}>About Page</Text>
+        <TouchableHighlight
+          onPress={() => this.props.navigation.navigate('Cardweb')}
+        >
         <Image
           style={styles.stretch}
           source={{uri:'https://upload.wikimedia.org/wikipedia/en/thumb/a/aa/Magic_the_gathering-card_back.jpg/200px-Magic_the_gathering-card_back.jpg'}}
         />
+        </TouchableHighlight>
         <Text style={styles.text}>
           Magic:The Gathering is a fantasy card game by Richard Garfield, Ph.D. and Wizards of the Coast centered on a “color wheel” 
           in which five distinct colors in a particular order represent five different flavors of magic. 

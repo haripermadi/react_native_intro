@@ -21,6 +21,7 @@ import NewsDetail from './screens/NewsDetail'
 import FontAwesome from 'react-native-vector-icons/FontAwesome'
 import {Provider} from 'react-redux'
 import store from './store/index'
+import Cardweb from './screens/Cardweb'
 
 const instructions = Platform.select({
   ios: 'Press Cmd+R to reload,\n' +
@@ -51,6 +52,9 @@ const NewsPage = createStackNavigator ({
 const AboutPage = createStackNavigator ({
   About: {
     screen: About
+  },
+  Cardweb: {
+    screen: Cardweb
   }
 })
 
@@ -87,15 +91,6 @@ const TabRoot =  createBottomTabNavigator(
 export default class App extends Component{
   render() {
     return (
-      // <View style={styles.container}>
-      //   <Text style={styles.welcome}>
-      //     Welcome to Magic: The Gathering!
-      //   </Text>
-      //   <Text style={styles.instructions}>
-      //     Collect the wizards and rule the world!
-      //   </Text>
-      //   <Home/>
-      // </View>
       <Provider store={store}>
         <TabRoot/>
       </Provider>

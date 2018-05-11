@@ -1,13 +1,11 @@
 import React, { Component } from 'react';
 import {WebView} from 'react-native'
-import {connect} from 'react-redux'
-import {bindActionCreators} from 'redux'
 
-class NewsDetail extends Component {
+class Cardweb extends Component {
   static navigationOptions = {
     title: 'Back',
     headerStyle: {
-      backgroundColor: '#EA2027',
+      backgroundColor: '#0c2461',
     },
     headerTintColor: 'white',
     headerTitleStyle: {
@@ -15,14 +13,12 @@ class NewsDetail extends Component {
     },
   };
   render() {
-    const urlNews= this.props.navigation.getParam('url')
     return (
-    <WebView
-      source={{uri: urlNews}}
+      <WebView
+      source={{uri: 'https://magic.wizards.com/en'}}
     />
     );
   }
 }
 
-
-export default NewsDetail;
+export default Cardweb;
